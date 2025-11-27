@@ -19,6 +19,17 @@ const getProducts = async (req,res) => {
             res.status(500).json({ message: 'Lỗi server' });
         }  
 };
+const getProductsById = async (req,res) => {
+        const { id } = req.params;
+        try {
+            const product = await Product.findById(id); 
+            if (!product) return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
+            res.json(product);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: 'Lỗi server' });
+        }  
+};     
 const updateProduct = async (req,res) => {
         const { id } = req.params;
         const updated = await Product.findByIdAndUpdate(id, req.body, { new: true });
@@ -31,4 +42,4 @@ const deleteProduct = async (req,res) => {
         if (!deleted) return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
         res.json({ message: 'Xóa sản phẩm thành công' });
 }
-export  { createProducts, getProducts, updateProduct, deleteProduct } ;   
+export  { createProducts, getProducts, updateProduct, deleteProduct, getProductsById }; ;   

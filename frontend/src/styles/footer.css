@@ -1,0 +1,57 @@
+.footer-container {
+  padding: 70px 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer-logo {
+  font-size: 34px;
+  font-style: italic;
+  color: #b86b52;
+  font-weight: 500;
+  margin-right: 40px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footer-col a {
+  font-size: 15px;
+  color: #000;
+  cursor: pointer;
+}
+
+.footer-col a:hover {
+  text-decoration: underline;
+}
+
+/* Đảm bảo footer không co lại */
+.footer-col,
+.footer-logo {
+  min-width: 160px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+  .footer-logo {
+    margin: 0 auto;
+  }
+}

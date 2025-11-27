@@ -1,15 +1,13 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/login";
-import Register from "./pages/register";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Header from "./components/header";
-
+import Footer from "./components/footer";
 export default function App() {
   return (
     <>
     <Header/>
-    <Login/>
-    <Register/>
+    <Outlet/>
+    <Footer/>
     </>
   );
 }

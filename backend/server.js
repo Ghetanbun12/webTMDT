@@ -14,6 +14,8 @@ const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 const productRoutes = require('./routes/productRoutes');
 app.use('/api/products', productRoutes);
+const cartRoutes = require('./routes/cart');
+app.use('/api/cart', cartRoutes);
 // ví dụ route bảo vệ
 const authMiddleware = require('./middleware/auth');
 app.get('/api/protected', authMiddleware, (req, res) => {

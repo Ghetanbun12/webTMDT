@@ -1,0 +1,102 @@
+.pd-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial;
+}
+
+.pd-back-btn {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.pd-content {
+  display: flex;
+  gap: 50px;
+}
+
+.pd-image-box img {
+  width: 100%;
+  height: 600px;
+  object-fit: contain;
+  background: #f7f3ef;
+}
+
+.pd-info {
+  flex: 1;
+}
+
+.pd-title {
+  margin-bottom: 10px !important;
+}
+
+.pd-sku {
+  color: #666;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.pd-price {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #b86b52;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.pd-description {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.pd-description a {
+  color: #b86b52;
+}
+
+.pd-qty-box {
+  margin-top: 20px;
+}
+
+.pd-qty-control {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pd-qty-control button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.pd-qty-number {
+  width: 60px;
+  text-align: center;
+  border: 1px solid #ccc;
+  height: 40px;
+  line-height: 40px;
+}
+
+.pd-buttons {
+  margin-top: 30px;
+}
+
+.pd-add-cart {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 15px;
+  background: #b85c3c !important;
+  border: none !important;
+  font-size: 16px;
+}
+
+.pd-buy-now {
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  background: #000 !important;
+  color: #fff !important;
+}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Button, message, Card } from "antd";
 import { registerUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
+import "../styles/product/productdetail.css";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
