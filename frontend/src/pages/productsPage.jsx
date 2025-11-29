@@ -7,7 +7,6 @@ const ProductsPage = () => {
         <h1>Products Pagse</h1>
         <ShowProducts/>
         <ProductDetail/>
-        <CartPage/>
     </>
 }
 export default ProductsPage;

@@ -23,7 +23,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50"  style={{display:"flex", alignItems:"center", justifyContent:"center", height:"70vh"}}>
       <Card title="Đăng ký tài khoản" style={{ width: 400 }}>
         <Form layout="vertical" onFinish={onFinish}>
           <Form.Item

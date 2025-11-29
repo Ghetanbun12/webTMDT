@@ -3,9 +3,12 @@ import { X } from "lucide-react";
 import { getCart } from "../../api/cart";
 import { getProductById } from "../../api/products";
 import "../../styles/cart/cartpopup.css";
+import { useNavigate } from "react-router-dom";
 
 const CartPopup = ({ isOpen, onClose }) => {
     const [items, setItems] = useState([]);
+    const Navigate = useNavigate();
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         if (!isOpen) return;
@@ -29,6 +32,13 @@ const CartPopup = ({ isOpen, onClose }) => {
 
         fetchData();
     }, [isOpen]);
+   useEffect(() => {
+   const totalMoney = items.reduce(
+        (acc, item) => acc + item.product.price * item.quantity,
+        0
+    );
+    setTotal(totalMoney);
+}, [items]);
 
     return (
         <div className={`cart-popup-overlay ${isOpen ? "active" : ""}`}>
@@ -41,9 +51,12 @@ const CartPopup = ({ isOpen, onClose }) => {
                 </div>
 
                 <div className="cart-body">
-                    {items.map(item => (
+                    <div>{items.map(item => (
                         <div key={item._id} className="cart-item">
-                            <img src={item.product.imageUrl} alt="" />
+                            <img onClick={() => {
+                                Navigate(`../product/${item.product._id}`)
+                                onClose();
+                            }} src={item.product.imageUrl} alt="" />
                             <div className="item-info">
                                 <p className="item-name">{item.product.name}</p>
                                 <p className="item-price">${item.product.price}</p>
@@ -55,6 +68,11 @@ const CartPopup = ({ isOpen, onClose }) => {
                             </p>
                         </div>
                     ))}
+                    </div>
+                    <div>
+                       Total: ${total.toFixed(2)}
+                    </div>
+
                 </div>
 
                 <div className="cart-footer">

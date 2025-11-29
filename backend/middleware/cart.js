@@ -1,16 +1,18 @@
 import CartItem from '../models/cartitem.js';
 const addToCart = async (req, res) => {
-    const { productId, name, price } = req.body;
+    const { productId, name, price,quantity } = req.body;
 
     const exist = await CartItem.findOne({ productId });
 
     if (exist) {
-        exist.quantity += exist.quantity || 1;
+        let resetQuantity = quantity || 1;
+        exist.quantity += resetQuantity || 1;
+        resetQuantity = 0;
         await exist.save();
         return res.json(exist);
     }
 
-    const newItem = await CartItem.create({ productId, name, price });
+    const newItem = await CartItem.create({ productId, name, price,quantity });
     res.json(newItem);
 
 };
