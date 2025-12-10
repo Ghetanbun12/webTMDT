@@ -5,5 +5,5 @@ const API = axios.create({
 });
 export const getCart = () => API.get("/");
 export const addToCart = (data) => API.post("/", data);
-export const updateCartItem = (id, data) => API.put(`/update/${id}`, data); 
-export const removeFromCart = (id) => API.delete(`/remove/${id}`);
+export const updateCartItem = (id, data) => API.put(`${id}`, data); 
+export const removeFromCart = (id) => API.delete(`/${id}`);

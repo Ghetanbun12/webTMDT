@@ -1,3 +1,4 @@
+
 import Product from '../models/product.js';
 const createProducts = async (req,res) => {
       const { name, description, price, category, imageUrl,stock } = req.body;
@@ -7,8 +8,19 @@ const createProducts = async (req,res) => {
         res.status(201).json({ message: 'Sản phẩm được tạo thành công', product });
       } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Lỗi server' });
+        res.status(500).json({ message: 'Lỗi server ssd' });
       }
+};
+const searchProducts = async (req, res) => {
+        try{
+            const search = req.query.q ||"";
+            const products = await Product.find({  name: { $regex: search, $options: "i" } });
+            res.json(products);
+        }
+        catch(err){
+            console.error(err);
+            res.status(500).json({ message: 'Lỗi server' });
+        }
 };
 const getProducts = async (req,res) => {
         try {
@@ -41,5 +53,6 @@ const deleteProduct = async (req,res) => {
         const deleted = await Product.findByIdAndDelete(id); 
         if (!deleted) return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
         res.json({ message: 'Xóa sản phẩm thành công' });
-}
-export  { createProducts, getProducts, updateProduct, deleteProduct, getProductsById }; ;   
+};
+
+export  { createProducts, getProducts, updateProduct, deleteProduct, getProductsById,searchProducts };  

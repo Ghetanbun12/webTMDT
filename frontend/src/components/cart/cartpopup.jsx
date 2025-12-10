@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import { getCart } from "../../api/cart";
+import { getCart, removeFromCart } from "../../api/cart";
 import { getProductById } from "../../api/products";
 import "../../styles/cart/cartpopup.css";
 import { useNavigate } from "react-router-dom";
+import { Trash } from "lucide-react";
 
 const CartPopup = ({ isOpen, onClose }) => {
     const [items, setItems] = useState([]);
@@ -39,6 +40,14 @@ const CartPopup = ({ isOpen, onClose }) => {
     );
     setTotal(totalMoney);
 }, [items]);
+   
+         const handleRemove = async (id) => {
+        try {
+            await removeFromCart(id);
+            setItems((prev) => prev.filter((item) => item._id !== id));
+        } catch (err) {
+            console.error("Error removing item from cart:", err);
+        }    };
 
     return (
         <div className={`cart-popup-overlay ${isOpen ? "active" : ""}`}>
@@ -53,10 +62,18 @@ const CartPopup = ({ isOpen, onClose }) => {
                 <div className="cart-body">
                     <div>{items.map(item => (
                         <div key={item._id} className="cart-item">
+                            <div style={{margin:"2vh"}}>
+                                <button onClick={()=> handleRemove(item._id)}>
+                            <Trash size={20} color="red" />
+                                </button>
+                            </div>
                             <img onClick={() => {
                                 Navigate(`../product/${item.product._id}`)
                                 onClose();
                             }} src={item.product.imageUrl} alt="" />
+                            <div>
+
+                            </div>
                             <div className="item-info">
                                 <p className="item-name">{item.product.name}</p>
                                 <p className="item-price">${item.product.price}</p>
