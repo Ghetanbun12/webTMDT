@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {searchProducts} from '../api/products';
 
-const Header = () => {
+const Header = ({onSearch}) => {
   const Navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [current, setCurrent] = useState('shop-all');
@@ -31,6 +31,7 @@ const Header = () => {
     try {
       console.log(keyword);
       const res = await searchProducts(keyword);
+      onSearch(res.data);
       console.log(res.data);
     } catch (err) {
       console.error(err);
@@ -64,7 +65,7 @@ const Header = () => {
                 type="text" 
                 placeholder="Search..." 
                 value={keyword} 
-                onChange={(e) => setKeyword(e.target.value)}
+                onChange={(e) => setKeyword(e.target.value) && handleSearch()}
 
                 />
                 <button className="search-btn" 

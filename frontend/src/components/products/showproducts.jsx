@@ -3,6 +3,7 @@ import { getProducts } from "../../api/products";
 import { Row, Col, Card, Tag, Typography } from "antd";
 import "../../styles/product/products.css"; // style riêng
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const { Meta } = Card;
 const { Text } = Typography;
 
@@ -13,10 +14,15 @@ const ShowProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await getProducts();
+        const Api = axios.create({
+          baseURL: "http://localhost:3000/api/products",
+        });
+        const res = await Api.get("/");
         setProducts(res.data);
-      } catch (err) {
-        console.error("Error fetching products:", err);
+
+      }
+      catch (error) {
+        console.error("Lỗi khi lấy sản phẩm:", error);
       }
     };
     fetchProducts();
