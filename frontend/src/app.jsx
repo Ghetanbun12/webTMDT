@@ -7,7 +7,7 @@ export default function App() {
   return (
     <>
     <Header onSearch={setDataSearch} />
-    <Outlet />
+    <Outlet context={{dataSearch}}/>
     <Footer/>
     </>
   );

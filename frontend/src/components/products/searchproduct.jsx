@@ -1,14 +1,15 @@
 import React from "react";
-const searchProductsPage = (dataSearch) => {
+import {contextOutlet} from 'react-router-dom';
+const searchProductsPage = () => {
+    const {dataSearch} = useOutletContext();
     return (
         <div>
-            {
-                dataSearch.map((product) => {
-                    <div key={product._id}>
-                        <p>{product.name}</p>
-                    </div>
-                })
-            }
+            <h1>Search Products</h1>
+            <ul>
+                {dataSearch.map((product) => (
+                    <li key={product.id}>{product.name}</li>
+                ))}
+            </ul>
         </div>
     )
 };  

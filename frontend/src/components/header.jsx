@@ -65,7 +65,7 @@ const Header = ({onSearch}) => {
                 type="text" 
                 placeholder="Search..." 
                 value={keyword} 
-                onChange={(e) => setKeyword(e.target.value) && handleSearch()}
+                onChange={(e) => setKeyword(e.target.value)}
 
                 />
                 <button className="search-btn" 

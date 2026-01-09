@@ -3,13 +3,15 @@ import { getProducts } from "../../api/products";
 import { Row, Col, Card, Tag, Typography } from "antd";
 import "../../styles/product/products.css"; // style riêng
 import { useNavigate } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 const { Meta } = Card;
 const { Text } = Typography;
 
 const ShowProducts = () => {
   const [products, setProducts] = useState([]);
   const Navigate = useNavigate();
-
+  const {dataSearch} = useOutletContext();
+  if(dataSearch !== null) console.log("sadasd",dataSearch);
   useEffect(() => {
     const fetchProducts = async () => {
       try {

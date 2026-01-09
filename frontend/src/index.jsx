@@ -46,6 +46,10 @@ const router = createBrowserRouter([
         {
           path:"/story",
           element:<StoryPage/>
+        },
+        {
+            path:`/product/search/${keyword}`,
+            element:<searchProducts/>
         }
     ]
 }
