@@ -7,7 +7,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
+  const onFinish = async (values : any) => {
     setLoading(true);
     try {
       const res = await loginUser(values);
@@ -19,7 +19,7 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       navigate("/"); // chuyển về trang chính
-    } catch (err) {
+    } catch (err : any) {
       message.error(err.response?.data?.message || "Sai thông tin đăng nhập!");
     } finally {
       setLoading(false);

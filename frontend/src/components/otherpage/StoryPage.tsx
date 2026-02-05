@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/otherpage/storypage.css";
+import "../../styles/otherpage/StoryPage.css";
 
 const StoryPage = () => {
   return (

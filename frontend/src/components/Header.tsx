@@ -1,14 +1,14 @@
 // Header.jsx
 import React, { useState } from 'react';
 import { Search, ShoppingCart, User, Facebook, Instagram, Twitter, Menu, X } from 'lucide-react';
-import '../styles/header.css';
+import '../styles/Header.css';
 import lucide from 'lucide-react';
-import CartPopup from './cart/cartpopup';
+import CartPopup from './cart/CartPopup';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {searchProducts} from '../api/products';
 
-const Header = ({onSearch}) => {
+const Header = ({onSearch }:any) => {
   const Navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [current, setCurrent] = useState('shop-all');
@@ -23,16 +23,16 @@ const Header = ({onSearch}) => {
     { key: 'contact', label: 'Contact', href: '/story' },
   ];
 
-  const handleNavClick = (key) => {
+  const handleNavClick = (key:any) => {
     setCurrent(key);
     setMobileMenuOpen(false);
   };
  const handleSearch = async () => {
     try {
       console.log(keyword);
-      const res = await searchProducts(keyword);
+      if(keyword) { const res = await searchProducts(keyword);
       onSearch(res.data);
-      console.log(res.data);
+      console.log(res.data);}
     } catch (err) {
       console.error(err);
     } 

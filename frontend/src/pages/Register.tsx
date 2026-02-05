@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Form, Input, Button, message, Card } from "antd";
 import { registerUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
-import "../styles/product/productdetail.css";
+
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
+  const onFinish = async (values : any) => {
     setLoading(true);
     try {
       const res = await registerUser(values);
@@ -16,7 +16,8 @@ const Register = () => {
       console.log("Thông tin user:", res.data);
       navigate("/login");
     } catch (err) {
-      message.error(err.response?.data?.message || "Đăng ký thất bại!");
+      if(err instanceof Error){}
+      message.error("Đăng ký thất bại!");
     } finally {
       setLoading(false);
     }

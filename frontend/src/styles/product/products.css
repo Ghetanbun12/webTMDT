@@ -1,57 +1,105 @@
-.product-container {
+/* ===== PAGE LAYOUT ===== */
+.product-page {
+  display: flex;
+  gap: 40px;
   padding: 40px;
+  background-color: #fff;
 }
 
+/* ===== LEFT FILTER ===== */
+.product-filter {
+  width: 260px;
+  flex-shrink: 0;
+  border-right: 1px solid #eee;
+  padding-right: 30px;
+}
+
+.product-filter h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.filter-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.filter-list li {
+  padding: 8px 0;
+  cursor: pointer;
+  color: #555;
+}
+
+.filter-list li.active {
+  font-weight: 600;
+  color: #000;
+}
+
+/* ===== PRICE RANGE ===== */
+.price-range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* ===== RIGHT CONTENT ===== */
+.product-content {
+  flex: 1;
+}
+
+/* HEADER */
 .product-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.product-card {
-  border-radius: 16px !important;
-  overflow: hidden;
-  background-color: #fafafa;
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  margin-bottom: 30px;
 }
 
+/* ===== PRODUCT CARD ===== */
+.product-card {
+  border-radius: 20px !important;
+  overflow: hidden;
+  border: none !important;
+
+}
+
+/* IMAGE */
 .product-image-wrapper {
-  position: relative;
-  background-color: #fffaf4;
-  /* padding: 20px; */
+  padding: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 20px;
 }
 
 .product-image {
-  width: 100%;
-  height: 250px;
-  object-fit: contain;
-  border-radius: 12px;
+  /* width: 100%; */
+  height: 260px;
+  /* object-fit: contain; */
 }
 
+/* BEST SELLER TAG */
 .best-seller-tag {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  border-radius: 10px;
-  font-weight: bold;
+  top: 16px;
+  left: 16px;
+  background-color: #d65a31 !important;
+  color: #fff !important;
+  border-radius: 12px;
+  font-size: 12px;
 }
 
+/* TITLE & PRICE */
 .product-title {
   text-align: center;
   font-weight: 500;
-  color: #333;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 .product-price {
   text-align: center;
-  color: #e86a33;
-  font-style: italic;
+  color: #d65a31;
   font-weight: 500;
 }

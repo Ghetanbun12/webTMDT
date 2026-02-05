@@ -1,10 +1,9 @@
 import React from 'react';
-import ShowProducts from '../components/products/showproducts'
+import ShowProducts from '../components/products/showproducts';
 import ProductDetail from '../components/products/productdetail';
-import CartPage from './cartpage';
 const ProductsPage = () => {
     return <>
-        <h1>Products Pagse</h1>
+        <h1>Products Page</h1>
         <ShowProducts/>
         <ProductDetail/>
     </>
