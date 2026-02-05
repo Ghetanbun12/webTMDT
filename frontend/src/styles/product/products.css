@@ -64,11 +64,19 @@
   overflow: hidden;
   border: none !important;
 
+
+}
+:where(.css-dev-only-do-not-override-mncuj7)
+.ant-card
+.ant-card-cover > * {
+  display: flex;
+  border-radius: 8px 8px 0 0;
+  background-color: #f7f3f0;
 }
 
 /* IMAGE */
 .product-image-wrapper {
-  padding: 30px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

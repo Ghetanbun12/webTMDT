@@ -1,6 +1,6 @@
 import React from 'react';
-import ShowProducts from '../components/products/showproducts';
-import ProductDetail from '../components/products/productdetail';
+import ShowProducts from '../components/products/ShowProducts.tsx';  // Chú ý: S hoa, p thường theo tên file thực tế
+import ProductDetail from '../components/products/ProductDetail.tsx';
 const ProductsPage = () => {
     return <>
         <h1>Products Page</h1>

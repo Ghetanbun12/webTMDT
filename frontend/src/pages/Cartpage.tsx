@@ -1,12 +1,12 @@
 import { useState } from "react";
-import GetCartProduct from "../components/cart/GetCard";
+import GetCard from "../components/cart/GetCard.tsx";  // Sửa từ GetCartProduct thành GetCard
 
 export default function CartPage() {
   const [openCart, setOpenCart] = useState(true);
 
   return (
     <div className="cart-container">
-      <GetCartProduct
+      <GetCard
         isOpen={openCart}
         onClose={() => setOpenCart(false)}
       />

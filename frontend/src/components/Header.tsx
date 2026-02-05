@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Search, ShoppingCart, User, Facebook, Instagram, Twitter, Menu, X } from 'lucide-react';
 import '../styles/Header.css';
 import lucide from 'lucide-react';
-import CartPopup from './cart/CartPopup';
+import CartPopup from './cart/CartPopup.tsx';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {searchProducts} from '../api/products';

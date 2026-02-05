@@ -2,24 +2,24 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from "./App";
+import App from "./App.tsx";
 
-// pages
-import  Login  from "./pages/Login";
-import Register from "./pages/Register";
-import ProductsPage from "./pages/ProductsPage";
-import CartPage from "./pages/CartPage";
+// pages - THÊM .tsx vào tất cả
+import Login from "./pages/Login.tsx";
+import Register from "./pages/Register.tsx";
+import ProductsPage from "./pages/ProductsPage.tsx";
+import CartPage from "./pages/CartPage.tsx";
 
-// components
-import ProductDetail from "./components/products/ProductDetail";
-import SearchProducts from "./components/products/SearchProduct";
-import  StoryPage  from "./components/otherpage/StoryPage";
-import { CartProvider } from "./components/cart/CartContext";
+// components - ĐÃ CÓ .tsx
+import ProductDetail from "./components/products/ProductDetail.tsx";
+import SearchProducts from "./components/products/SearchProduct.tsx";
+import StoryPage from "./components/otherpage/StoryPage.tsx";  // THÊM .tsx
+import { CartProvider } from "./components/cart/CartContext.tsx";  // THÊM .tsx
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <App/>,
     children: [
       { index: true, element: <ProductsPage /> },
       { path: "login", element: <Login /> },

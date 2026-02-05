@@ -4,6 +4,7 @@ import { Button, Typography } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { addToCart } from "../../api/cart";
 import { getProductById } from "../../api/products";
+import "../../styles/product/ProductDetail.css";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -16,10 +17,6 @@ interface Product {
   description: string;
   bestSeller?: boolean;
 }
-
-/* =======================
-   COMPONENT
-======================= */
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();

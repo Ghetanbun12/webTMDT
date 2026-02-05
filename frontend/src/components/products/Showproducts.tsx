@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Row, Col, Card, Tag, Typography } from "antd";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { getProducts } from "../../api/products";
-import ProductFilter from "./productfilter";
+import ProductFilter from "./Productfilter.tsx";
 import "../../styles/product/Products.css";
 
 const { Meta } = Card;
