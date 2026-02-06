@@ -1,27 +1,19 @@
 import { Slider } from "antd";
 
-/* =======================
-   TYPE DEFINITIONS
-======================= */
-
 interface ProductFilterProps {
-  selectedCategory?: string;
-  onCategoryChange?: (category: string) => void;
+  selectedType?: string;
+  onTypeChange?: (type: string) => void;
   priceRange?: [number, number];
   onPriceChange?: (value: [number, number]) => void;
 }
 
-/* =======================
-   COMPONENT
-======================= */
-
 const ProductFilter = ({
-  selectedCategory = "ALL",
-  onCategoryChange = () => {},
+  selectedType = "ALL",
+  onTypeChange = () => {},
   priceRange = [0, 1000],
   onPriceChange = () => {},
 }: ProductFilterProps) => {
-  const categories: string[] = [
+  const types: string[] = [
     "ALL",
     "Bags",
     "Best Sellers",
@@ -35,13 +27,13 @@ const ProductFilter = ({
       <h4>Browse by</h4>
 
       <ul className="filter-list">
-        {categories.map((cat) => (
+        {types.map((type) => (
           <li
-            key={cat}
-            className={selectedCategory === cat ? "active" : ""}
-            onClick={() => onCategoryChange(cat)}
+            key={type}
+            className={selectedType === type ? "active" : ""}
+            onClick={() => onTypeChange(type)}
           >
-            {cat}
+            {type}
           </li>
         ))}
       </ul>

@@ -1,6 +1,6 @@
 import Product from "../models/product.js";
 const createProducts = async (req, res) => {
-  const { name, description, price, category, imageUrl, stock } = req.body;
+  const { name, description, price, category, imageUrl, stock, type } = req.body;
   try {
     const product = new Product({
       name,
@@ -9,6 +9,7 @@ const createProducts = async (req, res) => {
       category,
       imageUrl,
       stock,
+      type,
     });
     await product.save();
     res.status(201).json({ message: "Sản phẩm được tạo thành công", product });
@@ -34,6 +35,30 @@ const searchProducts = async (req, res) => {
     res.status(500).json({ message: "Lỗi server" });
   }
 };
+const searchProductsByType = async (req, res) => {
+  let { type } = req.query;
+
+  if (!type) type = "";
+
+  try {
+    const products = await Product.find({
+      type: { $regex: type, $options: "i" }, 
+    });
+    res.json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
+const getBestSellerProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ bestSeller: true });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
+
 
 const getProducts = async (req, res) => {
   try {
@@ -72,10 +97,12 @@ const deleteProduct = async (req, res) => {
 };
 
 export {
+  searchProductsByType,
   createProducts,
   getProducts,
   updateProduct,
   deleteProduct,
   getProductsById,
   searchProducts,
+  getBestSellerProducts
 };

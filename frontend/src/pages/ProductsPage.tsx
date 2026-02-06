@@ -3,7 +3,7 @@ import ShowProducts from '../components/products/ShowProducts.tsx';  // Chú ý:
 import ProductDetail from '../components/products/ProductDetail.tsx';
 const ProductsPage = () => {
     return <>
-        <h1>Products Page</h1>
+
         <ShowProducts/>
         <ProductDetail/>
     </>

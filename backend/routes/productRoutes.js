@@ -8,6 +8,8 @@ import {
   deleteProduct,
   getProductsById,
   searchProducts,
+  searchProductsByType,
+  getBestSellerProducts,
 } from "../middleware/product.js";
 
 /**
@@ -45,6 +47,26 @@ router.get("/", getProducts);
  *       200:
  *         description: Thành công
  */
+router.get("/searchByType", searchProductsByType);
+
+/**
+ * @swagger
+ * /api/products/searchByType:
+ *   get:
+ *     summary: Tìm kiếm sản phẩm theo type
+ *     tags: [Products]
+ *     parameters:
+ *       - in: query
+ *         name: type
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Loại sản phẩm (phonecase, mini_leather_goods...)
+ *     responses:
+ *       200:
+ *         description: Thành công
+ */
+
 router.get("/search", searchProducts);
 
 /**
@@ -95,6 +117,9 @@ router.get("/:id", getProductsById);
  *       201:
  *         description: Tạo thành công
  */
+router.get("/bestseller", getBestSellerProducts);
+
+
 router.post("/", createProducts);
 
 /**

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Card, Tag, Typography } from "antd";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { getProducts } from "../../api/products";
-import ProductFilter from "./Productfilter.tsx";
+import { getProducts, searchProductsByType } from "../../api/products";
+import ProductFilter from "./ProductFilter.tsx";
 import "../../styles/product/Products.css";
 
 const { Meta } = Card;
@@ -14,29 +14,33 @@ interface Product {
   imageUrl: string;
   price: number;
   bestSeller: boolean;
+  type: string;
 }
 
 interface OutletContextType {
   dataSearch: Product[];
 }
 
-
 const ShowProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const navigate = useNavigate();
+  const [selectedType, setSelectedType] = useState<string>("ALL");
 
+  const navigate = useNavigate();
   const { dataSearch } = useOutletContext<OutletContextType>();
 
+  /* Load all products */
   const fetchAllProducts = async () => {
-    try {
-      const res = await getProducts();
-      setProducts(res.data as Product[]);
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      } else {
-        console.error("Unknown error", err);
-      }
+    const res = await getProducts();
+    setProducts(res.data);
+  };
+
+  /* Filter by type (SERVER SIDE) */
+  const fetchProductsByType = async (type: string) => {
+    if (type === "ALL") {
+      fetchAllProducts();
+    } else {
+      const res = await searchProductsByType(type);
+      setProducts(res.data);
     }
   };
 
@@ -48,18 +52,25 @@ const ShowProducts = () => {
     }
   }, [dataSearch]);
 
+  useEffect(() => {
+    fetchProductsByType(selectedType);
+  }, [selectedType]);
+
   return (
     <div className="product-page">
       {/* LEFT FILTER */}
       <aside className="product-filter">
-        <ProductFilter />
+        <ProductFilter
+          selectedType={selectedType}
+          onTypeChange={setSelectedType}
+        />
       </aside>
 
       {/* RIGHT CONTENT */}
       <section className="product-content">
         <div className="product-header">
           <Text strong>{products.length} products</Text>
-          <Text type="secondary">Sort by: Recommended ▼</Text>
+          <Text type="secondary">Filter by type</Text>
         </div>
 
         <Row gutter={[24, 24]}>
