@@ -5,6 +5,8 @@ interface ProductFilterProps {
   onTypeChange?: (type: string) => void;
   priceRange?: [number, number];
   onPriceChange?: (value: [number, number]) => void;
+  selectBestSeller?: boolean;
+  onBestSellerChange?: (value: boolean) => void;
 }
 
 const ProductFilter = ({
@@ -32,6 +34,7 @@ const ProductFilter = ({
             key={type}
             className={selectedType === type ? "active" : ""}
             onClick={() => onTypeChange(type)}
+            
           >
             {type}
           </li>

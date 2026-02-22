@@ -1,4 +1,5 @@
 import express from "express";
+import authMiddleware from "../middleware/auth.js";
 const router = express.Router();
 
 import {
@@ -7,6 +8,7 @@ import {
   updateCartItem,
   removeCartItem,
 } from "../middleware/cart.js";
+ router.use(authMiddleware);
 
 /**
  * @swagger

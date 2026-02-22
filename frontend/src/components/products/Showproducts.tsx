@@ -24,6 +24,7 @@ interface OutletContextType {
 const ShowProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedType, setSelectedType] = useState<string>("ALL");
+  const [selectedBestSeller, setSelectedBestSeller] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { dataSearch } = useOutletContext<OutletContextType>();
@@ -56,6 +57,10 @@ const ShowProducts = () => {
     fetchProductsByType(selectedType);
   }, [selectedType]);
 
+  useEffect(() => {
+    fetchProductsByType(selectedType);
+  }, [selectedBestSeller]);
+
   return (
     <div className="product-page">
       {/* LEFT FILTER */}
@@ -63,6 +68,8 @@ const ShowProducts = () => {
         <ProductFilter
           selectedType={selectedType}
           onTypeChange={setSelectedType}
+          selectedBestSeller={selectedBestSeller}
+          onBestSellerChange={setSelectedBestSeller}
         />
       </aside>
 

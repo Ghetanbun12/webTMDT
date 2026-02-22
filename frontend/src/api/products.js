@@ -10,3 +10,4 @@ export const createProduct = (data) => API.post("/", data);
 export const updateProduct = (id, data) => API.put(`/${id}`, data); 
 export const deleteProduct = (id) => API.delete(`/${id}`);
 export const getProductById = (id) => API.get(`/${id}`);
+export const getBestSellerProducts = () => API.get("/best-seller");

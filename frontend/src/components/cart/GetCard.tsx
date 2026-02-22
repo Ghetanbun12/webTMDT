@@ -6,9 +6,6 @@ import { getCart, removeFromCart } from "../../api/cart";
 import { getProductById } from "../../api/products";
 import "../../styles/cart/CartPopup.css";
 
-/* =====================
-   TYPES
-===================== */
 
 interface Product {
   _id: string;

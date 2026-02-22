@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "http://localhost:3000/api", // ⚠️ backend bạn chạy port nào thì ghi đúng ở đây
+const BearerToken = axios.create({
+  baseURL: "http://localhost:3000/api",
 });
 
 // tự động thêm token nếu có
-API.interceptors.request.use((req) => {
+BearerToken.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");
   if (token) {
     req.headers.Authorization = `Bearer ${token}`;
@@ -13,4 +13,4 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export default API;
+export default BearerToken;

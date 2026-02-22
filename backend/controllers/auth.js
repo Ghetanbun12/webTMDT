@@ -4,8 +4,7 @@ import { validationResult } from "express-validator";
 import User from "../models/user.js";
 
 /**
- * @desc Đăng ký người dùng
- * @route POST /api/auth/register
+ * POST /api/auth/register
  */
 export const regisUser = async (req, res) => {
   const errors = validationResult(req);
@@ -15,12 +14,10 @@ export const regisUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    // kiểm tra email tồn tại
     const existUser = await User.findOne({ email });
     if (existUser)
       return res.status(400).json({ message: "Email đã được sử dụng" });
 
-    // hash mật khẩu
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -28,21 +25,19 @@ export const regisUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      role: "user", // default
     });
 
     await user.save();
 
-    // tạo JWT
     const payload = {
       userId: user._id,
       role: user.role,
     };
 
-    const token = jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
-    );
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+    });
 
     return res.status(201).json({
       message: "Đăng ký thành công",
@@ -56,13 +51,12 @@ export const regisUser = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Lỗi server" });
+    res.status(500).json({ message: "Lỗi server" });
   }
 };
 
 /**
- * @desc Đăng nhập
- * @route POST /api/auth/login
+ * POST /api/auth/login
  */
 export const userLogin = async (req, res) => {
   const errors = validationResult(req);
@@ -85,11 +79,9 @@ export const userLogin = async (req, res) => {
       role: user.role,
     };
 
-    const token = jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
-    );
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+    });
 
     return res.json({
       message: "Đăng nhập thành công",
@@ -103,6 +95,6 @@ export const userLogin = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Lỗi server" });
+    res.status(500).json({ message: "Lỗi server" });
   }
 };

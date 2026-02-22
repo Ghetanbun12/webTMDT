@@ -1,7 +1,11 @@
 import express from "express";
-const router = express.Router();
+import { body } from "express-validator";
 
-import { regisUser, userLogin } from "../services/users.js";
+import { regisUser, userLogin } from "../controllers/auth.js";
+import authMiddleware from "../middleware/auth.js";
+import checkRole from "../middleware/checkRole.js";
+
+const router = express.Router();
 
 /**
  * @swagger
@@ -42,7 +46,21 @@ import { regisUser, userLogin } from "../services/users.js";
  *       400:
  *         description: Email đã tồn tại
  */
-router.post("/register", regisUser);
+router.post(
+  "/register",
+  [
+    body("name")
+      .notEmpty()
+      .withMessage("Tên không được để trống"),
+    body("email")
+      .isEmail()
+      .withMessage("Email không hợp lệ"),
+    body("password")
+      .isLength({ min: 6 })
+      .withMessage("Mật khẩu tối thiểu 6 ký tự"),
+  ],
+  regisUser
+);
 
 /**
  * @swagger
@@ -72,6 +90,63 @@ router.post("/register", regisUser);
  *       401:
  *         description: Sai email hoặc mật khẩu
  */
-router.post("/login", userLogin);
+router.post(
+  "/login",
+  [
+    body("email")
+      .isEmail()
+      .withMessage("Email không hợp lệ"),
+    body("password")
+      .notEmpty()
+      .withMessage("Mật khẩu không được để trống"),
+  ],
+  userLogin
+);
+
+/**
+ * @swagger
+ * /api/auth/profile:
+ *   get:
+ *     summary: Lấy thông tin user từ token
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Token hợp lệ
+ *       401:
+ *         description: Token không hợp lệ
+ */
+router.get("/profile", authMiddleware, (req, res) => {
+  res.json({
+    message: "Token hợp lệ",
+    user: req.user,
+  });
+});
+
+/**
+ * @swagger
+ * /api/auth/admin:
+ *   get:
+ *     summary: API chỉ dành cho admin
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Truy cập thành công
+ *       403:
+ *         description: Không có quyền
+ */
+router.get(
+  "/admin",
+  authMiddleware,
+  checkRole(["admin"]),
+  (req, res) => {
+    res.json({
+      message: "Chào admin 👑",
+    });
+  }
+);
 
 export default router;

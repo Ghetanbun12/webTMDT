@@ -3,7 +3,6 @@ import { X, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import { getCart, removeFromCart } from "../../api/cart";
-import { getProductById } from "../../api/products";
 import "../../styles/cart/CartPopup.css";
 
 /* ================= TYPES ================= */
@@ -12,22 +11,24 @@ interface Product {
   _id: string;
   name: string;
   price: number;
-  imageUrl: string;
+  // imageUrl: string;
 }
 
 interface CartItem {
-  _id: string;
-  productId: string;
+  productId: Product; // vì backend populate rồi
   quantity: number;
-  product: Product;
+}
+
+interface CartResponse {
+  _id: string;
+  userId: string;
+  items: CartItem[];
 }
 
 interface CartPopupProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-/* ================= COMPONENT ================= */
 
 const CartPopup: React.FC<CartPopupProps> = ({ isOpen, onClose }) => {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -42,50 +43,47 @@ const CartPopup: React.FC<CartPopupProps> = ({ isOpen, onClose }) => {
 
     const fetchData = async () => {
       try {
-        const cartRes = await getCart();
-        const cart = cartRes.data;
+        const res = await getCart();
+        const cart: CartResponse = res.data;
 
-        const full: CartItem[] = await Promise.all(
-          cart.map(async (item: any) => {
-            const productRes = await getProductById(item.productId);
-            return {
-              ...item,
-              product: productRes.data,
-            };
-          })
-        );
+        if (!cart?.items) {
+          setItems([]);
+          return;
+        }
 
-        setItems(full);
+        setItems(cart.items);
       } catch (error) {
         console.error("Fetch cart error:", error);
+        setItems([]);
       }
     };
 
     fetchData();
   }, [isOpen]);
 
-  /* ================= TOTAL ================= */
+  /* ================= CALCULATE TOTAL ================= */
 
   useEffect(() => {
     const totalMoney = items.reduce(
-      (acc, item) => acc + item.product.price * item.quantity,
+      (acc, item) => acc + item.productId.price * item.quantity,
       0
     );
     setTotal(totalMoney);
   }, [items]);
 
-  /* ================= REMOVE ================= */
+  /* ================= REMOVE ITEM ================= */
 
-  const handleRemove = async (id: string) => {
+  const handleRemove = async (productId: string) => {
     try {
-      await removeFromCart(id);
-      setItems((prev) => prev.filter((item) => item._id !== id));
+      await removeFromCart(productId);
+
+      setItems((prev) =>
+        prev.filter((item) => item.productId._id !== productId)
+      );
     } catch (err) {
       console.error("Error removing item:", err);
     }
   };
-
-  /* ================= RENDER ================= */
 
   return (
     <div className={`cart-popup-overlay ${isOpen ? "active" : ""}`}>
@@ -98,29 +96,40 @@ const CartPopup: React.FC<CartPopupProps> = ({ isOpen, onClose }) => {
         </div>
 
         <div className="cart-body">
+          {items.length === 0 && <p>Giỏ hàng trống</p>}
+
           {items.map((item) => (
-            <div key={item._id} className="cart-item">
-              <button onClick={() => handleRemove(item._id)}>
+            <div key={item.productId._id} className="cart-item">
+              <button
+                onClick={() => handleRemove(item.productId._id)}
+              >
                 <Trash size={20} color="red" />
               </button>
 
               <img
-                src={item.product.imageUrl}
-                alt={item.product.name}
+                // src={item.productId.imageUrl}
+                alt={item.productId.name}
                 onClick={() => {
-                  navigate(`/product/${item.product._id}`);
+                  navigate(`/product/${item.productId._id}`);
                   onClose();
                 }}
               />
 
               <div className="item-info">
-                <p className="item-name">{item.product.name}</p>
-                <p className="item-price">${item.product.price}</p>
-                <p className="item-quantity">Qty: {item.quantity}</p>
+                <p className="item-name">{item.productId.name}</p>
+                <p className="item-price">
+                  ${item.productId.price}
+                </p>
+                <p className="item-quantity">
+                  Qty: {item.quantity}
+                </p>
               </div>
 
               <p className="item-total">
-                ${(item.product.price * item.quantity).toFixed(2)}
+                $
+                {(item.productId.price * item.quantity).toFixed(
+                  2
+                )}
               </p>
             </div>
           ))}
