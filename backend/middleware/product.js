@@ -1,7 +1,29 @@
 import Product from "../models/product.js";
+import cloudinary from "../config/cloudinary.js";
+import multer from "multer";
+const storage = multer.memoryStorage();
+export const upload = multer({ storage });
 const createProducts = async (req, res) => {
-  const { name, description, price, category, imageUrl, stock, type } = req.body;
   try {
+    const { name, description, price, category, stock, type } = req.body;
+
+    let imageUrl = "";
+
+    if (req.file) {
+      const result = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "products" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
+        stream.end(req.file.buffer);
+      });
+
+      imageUrl = result.secure_url;
+    }
+
     const product = new Product({
       name,
       description,
@@ -11,11 +33,16 @@ const createProducts = async (req, res) => {
       stock,
       type,
     });
+
     await product.save();
-    res.status(201).json({ message: "Sản phẩm được tạo thành công", product });
+
+    res.status(201).json({
+      message: "Sản phẩm được tạo thành công",
+      product,
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Lỗi server ssd" });
+    res.status(500).json({ message: "Lỗi server" });
   }
 };
 const searchProducts = async (req, res) => {

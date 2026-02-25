@@ -10,6 +10,7 @@ import {
   searchProducts,
   searchProductsByType,
   getBestSellerProducts,
+  upload,
 } from "../middleware/product.js";
 
 /**
@@ -121,7 +122,7 @@ router.get("/bestseller", getBestSellerProducts);
 
 
 
-router.post("/", createProducts);
+router.post("/", upload.single("image"), createProducts);
 
 /**
  * @swagger

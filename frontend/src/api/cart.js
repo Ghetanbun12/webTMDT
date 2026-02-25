@@ -8,5 +8,5 @@ export const addToCart = (data) =>
 export const updateCartItem = (id, data) =>
   BearerToken.put(`/cart/${id}`, data);
 
-export const removeFromCart = (id) =>
-  BearerToken.delete(`/cart/${id}`);
+export const removeFromCart = (productId) =>
+  BearerToken.delete(`/cart`, { data: { productId } });

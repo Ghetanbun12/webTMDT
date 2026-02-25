@@ -11,7 +11,7 @@ interface Product {
   _id: string;
   name: string;
   price: number;
-  // imageUrl: string;
+  imageUrl: string;
 }
 
 interface CartItem {
@@ -107,7 +107,7 @@ const CartPopup: React.FC<CartPopupProps> = ({ isOpen, onClose }) => {
               </button>
 
               <img
-                // src={item.productId.imageUrl}
+                src={item.productId.imageUrl}
                 alt={item.productId.name}
                 onClick={() => {
                   navigate(`/product/${item.productId._id}`);

@@ -16,6 +16,7 @@ import authMiddleware from "./middleware/auth.js";
 
 const app = express();
 
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -26,6 +27,11 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Connect DB
 connectDB();
+console.log("CLOUD NAME:", process.env.CLOUDINARY_CLOUD_NAME);
+console.log("API KEY:", process.env.CLOUDINARY_API_KEY);
+console.log("SECRET:", process.env.CLOUDINARY_API_SECRET);
+
+
 
 // Routes
 app.use("/api/auth", authRoutes);

@@ -109,6 +109,6 @@ router.put("/:id", updateCartItem);
  *       200:
  *         description: Xóa thành công
  */
-router.delete("/:id", removeCartItem);
+router.delete("/", removeCartItem);
 
 export default router;

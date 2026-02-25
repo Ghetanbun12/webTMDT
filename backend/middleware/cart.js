@@ -58,7 +58,7 @@ export const getCartItems = async (req, res) => {
     }
 
     res.json(cart);
-    console.log("req.user", req.user);
+    console.log("req.user", cart);
   } catch (err) {
     console.error("getCartItems error:", err);
     res.status(500).json({ message: "Lỗi server" });
@@ -104,10 +104,10 @@ export const updateCartItem = async (req, res) => {
  */
 export const removeCartItem = async (req, res) => {
   try {
-    const userId = req.user.userId;
-    const { productId } = req.params;
 
+    const userId = req.user.userId;
     const cart = await Cart.findOne({ userId });
+    const { productId } = req.body;
     if (!cart)
       return res.status(404).json({ message: "Cart không tồn tại" });
 
