@@ -2,13 +2,13 @@
 
 /* Main Header Container */
 .header {
-  background-color: white;
+  background-image: url(../../assets/img/banner.jpg);
   border-bottom: 1px solid #e5e7eb;
 }
 
 /* Top Bar */
 .top-bar {
-  border-bottom: 1px solid #f3f4f6;
+
   padding: 0.5rem 0;
 }
 
@@ -129,7 +129,6 @@
   display: flex;
   justify-content: center;
   padding-bottom: 1rem;
-  border-top: 1px solid #f3f4f6;
   padding-top: 1rem;
 }
 

@@ -1,205 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ===== WRAPPER ===== */
 .food-wrapper {
-  display: flex;
-  padding:  60px;
-  background: #f8f8f8;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   min-height: 100vh;
-  background-image: url('../../../assets/img/backgr.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
 }
 
+/* Overlay mờ nhẹ cho nền */
+.food-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.food-left,
+.food-info {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== LEFT PANEL ===== */
 .food-left {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px 40px;
+  gap: 40px;
 }
 
+/* ===== MAIN IMAGE ===== */
 .food-main-img {
-  width: 420px;
-  height: 420px;
-  object-fit: cover;
-  margin: 0 auto;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  width: 380px;
+  height: 380px;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 48px rgba(255,140,66,0.22));
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+  animation: floatImage 4s ease-in-out infinite;
 }
 
+@keyframes floatImage {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+/* ===== THUMBNAIL STRIP ===== */
 .food-thumbs-container {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-top: 40px;
-  justify-content: center;
-  /* padding-left: 50px; */
-  transform: translateX(40vh);
-}
-
-.thumb-nav {
-  background: white;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.3s;
-}
-
-.thumb-nav:hover:not(:disabled) {
-  background: #ff8c42;
-  color: white;
-  transform: scale(1.1);
-}
-
-.thumb-nav:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+  gap: 12px;
 }
 
 .food-thumbs {
   display: flex;
-  gap: 20px;
+  gap: 12px;
 }
 
 .thumb {
   cursor: pointer;
   text-align: center;
-  padding: 16px;
-  border-radius: 16px;
-  transition: all 0.3s;
-  width: 140px;
+  padding: 10px 14px 12px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.34,1.2,0.64,1);
+  width: 110px;
 }
 
 .thumb:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 12px 28px rgba(255,140,66,0.15);
 }
 
 .thumb.active {
   background: white;
-  box-shadow: 0 8px 20px rgba(255,140,66,0.3);
-  border: 2px solid #ff8c42;
+  border-color: #ff8c42;
+  box-shadow: 0 8px 24px rgba(255,140,66,0.25);
 }
 
+/* ảnh thumbnail KHÔNG bo tròn vì đã tách nền */
 .thumb img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 8px;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+  transition: transform 0.3s ease;
+}
+
+.thumb:hover img {
+  transform: scale(1.08);
 }
 
 .thumb p {
-  font-size: 13px;
-  color: #333;
+  font-size: 12px;
+  color: #444;
   margin: 0;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* THÔNG TIN MÓN ĂN Ở GIỮA */
+.thumb.active p {
+  color: #ff8c42;
+  font-weight: 600;
+}
+
+/* NAV BUTTONS */
+.thumb-nav {
+  background: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+  color: #555;
+}
+
+.thumb-nav:hover:not(:disabled) {
+  background: #ff8c42;
+  color: white;
+  box-shadow: 0 6px 16px rgba(255,140,66,0.35);
+  transform: scale(1.1);
+}
+
+.thumb-nav:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* ===== RIGHT PANEL – FOOD INFO ===== */
 .food-info {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  padding: 0;
-  text-align: left;
-  max-height: 50vh;
+  justify-content: center;
+  padding: 60px 64px 60px 32px;
+  gap: 0;
 }
 
-.category-label {
-  color: #000000;
-  font-size: 3vh;
-  margin-bottom: 12px;
+/* Nhãn nhỏ trên tên */
+.food-info::before {
+  content: '✦ MÓN ĂN NỔI BẬT';
+  display: block;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #ff8c42;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 .food-name {
-  font-size: 5vh;
-  color: #ff8c42;
-  margin: 0 0 16px 0;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  line-height: 1.2;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 900;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+/* Đường kẻ trang trí */
+.food-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff8c42, #ffb84d);
+  border-radius: 2px;
+  margin: 20px 0 24px;
 }
 
 .food-description {
   color: #666;
-  font-size: 16px;
-  margin: 0 0 16px 0;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.75;
+  margin: 0 0 28px 0;
+  max-width: 440px;
 }
 
-.food-rating {
-  margin: 16px 0;
-  font-size: 24px;
+.best-seller-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  color: #e65100;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 30px;
+  margin-bottom: 24px;
+  width: fit-content;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255,140,66,0.25);
 }
 
 .food-price {
-  font-size: 28px;
-  font-weight: bold;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
   color: #ff8c42;
-  margin: 16px 0 0 0;
+  margin: 0 0 36px 0;
+  letter-spacing: -0.5px;
 }
 
-/* MENU PHẢI */
-.food-menu {
-  width: 240px;
-  background: #FFFAEC;
-  border-radius: 24px;
-  padding: 32px 24px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  height: fit-content;
-}
-.menu-logo {
-  width: 70%;
-  margin-bottom: 24px;
-}
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .food-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
 
-.menu-title {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 24px;
-  font-family: 'Brush Script MT', cursive;
-}
+  .food-left {
+    padding: 40px 24px 20px;
+  }
 
-.menu-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  background: #f8f8f8;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
+  .food-info {
+    padding: 20px 28px 48px;
+    align-items: center;
+    text-align: center;
+  }
 
-.menu-item:hover {
-  background: #ffe8d6;
-  transform: translateX(4px);
-}
+  .food-info::before {
+    text-align: center;
+  }
 
-.menu-item.active {
-  background: linear-gradient(135deg, #ffb84d 0%, #ff8c42 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(255,140,66,0.4);
-}
+  .food-divider {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.menu-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-}
+  .food-description {
+    max-width: 100%;
+  }
 
-.menu-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  .food-main-img {
+    width: 260px;
+    height: 260px;
+  }
 }

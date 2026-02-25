@@ -1,57 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
 .footer-container {
-  padding: 70px 0;
-  background: #ffffff;
-  font-family: Arial, sans-serif;
+  background-image: url(../../assets/img/footer.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+}
+
+/* Overlay nhẹ để chữ dễ đọc */
+.footer-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 248, 242, 0.88) 0%,
+    rgba(255, 243, 233, 0.94) 100%
+  );
+  z-index: 0;
 }
 
 .footer-inner {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 80px 60px 48px;
+}
 
+/* ===== TOP: BRAND + COLS ===== */
+.footer-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 60px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid rgba(184, 107, 82, 0.18);
+}
+
+/* ===== LOGO ===== */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 200px;
 }
 
 .footer-logo {
-  font-size: 34px;
+  font-family: 'Playfair Display', serif;
   font-style: italic;
+  font-size: 44px;
+  font-weight: 400;
   color: #b86b52;
-  font-weight: 500;
-  margin-right: 40px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: #aaa;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 190px;
+}
+
+/* ===== COLUMNS ===== */
+.footer-cols {
+  display: flex;
+  gap: 72px;
+  flex-wrap: wrap;
 }
 
 .footer-col {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  min-width: 120px;
+}
+
+.footer-col-title {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #b86b52;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .footer-col a {
-  font-size: 15px;
-  color: #000;
+  font-size: 14px;
+  color: #3a3a3a;
   cursor: pointer;
+  text-decoration: none;
+  padding: 7px 0;
+  font-weight: 400;
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  transition: color 0.25s ease;
+}
+
+/* underline animation on hover */
+.footer-col a::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: #b86b52;
+  transition: width 0.3s ease;
 }
 
 .footer-col a:hover {
-  text-decoration: underline;
+  color: #b86b52;
 }
 
-/* Đảm bảo footer không co lại */
-.footer-col,
-.footer-logo {
-  min-width: 160px;
+.footer-col a:hover::after {
+  width: 100%;
 }
 
-/* Responsive */
+/* ===== BOTTOM BAR ===== */
+.footer-bottom {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: #bbb;
+  letter-spacing: 0.3px;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 28px;
+}
+
+.footer-bottom-links a {
+  font-size: 12px;
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.footer-bottom-links a:hover {
+  color: #b86b52;
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  .footer-inner {
+  .footer-top {
     flex-direction: column;
+    align-items: center;
     text-align: center;
     gap: 40px;
   }
-  .footer-logo {
-    margin: 0 auto;
+
+  .footer-brand {
+    align-items: center;
+  }
+
+  .footer-tagline {
+    text-align: center;
+    max-width: 240px;
+  }
+
+  .footer-cols {
+    justify-content: center;
+    gap: 36px;
+  }
+
+  .footer-col {
+    align-items: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    padding: 24px 32px;
   }
 }

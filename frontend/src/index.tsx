@@ -16,6 +16,7 @@ import SearchProducts from "./components/products/SearchProduct.tsx";
 import StoryPage from "./components/otherpage/StoryPage.tsx";  // THÊM .tsx
 import { CartProvider } from "./components/cart/CartContext.tsx";  // THÊM .tsx
 import HomePage from "./pages/HomePage.tsx";
+import AdminPage from "./pages/AdminPage.tsx";
 
 
 const router = createBrowserRouter([
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
       { path: "product/search/:keyword", element: <SearchProducts /> },
       { path: "cart", element: <CartPage /> },
       { path: "story", element: <StoryPage /> },
-      {path: "home", element:<HomePage/> }
+      {path: "home", element:<HomePage/> },
+      {path: "admin", element: <AdminPage/>}
     ],
   },
 ]);
