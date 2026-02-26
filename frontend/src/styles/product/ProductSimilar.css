@@ -1,0 +1,281 @@
+/* ===== SimilarProducts.css ===== */
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+.sp-section {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  padding: 36px 0 28px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 40px;
+}
+
+/* ---- Header ---- */
+.sp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.sp-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: -0.3px;
+  position: relative;
+  padding-left: 14px;
+}
+
+.sp-label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(180deg, #e85d04, #f48c06);
+  border-radius: 2px;
+}
+
+/* ---- Nav buttons ---- */
+.sp-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sp-btn {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #333;
+}
+
+.sp-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sp-btn:hover:not(.sp-btn--disabled) {
+  background: #1a1a2e;
+  border-color: #1a1a2e;
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(26, 26, 46, 0.18);
+}
+
+.sp-btn--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.sp-pagination {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+  min-width: 36px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ---- Carousel ---- */
+.sp-carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.sp-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  animation: sp-enter 0.35s cubic-bezier(0.22, 0.68, 0, 1.2) both;
+}
+
+@keyframes sp-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sp-track--exit-right {
+  animation: sp-exit-right 0.32s ease forwards;
+}
+
+.sp-track--exit-left {
+  animation: sp-exit-left 0.32s ease forwards;
+}
+
+@keyframes sp-exit-right {
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes sp-exit-left {
+  to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+}
+
+/* ---- Card ---- */
+.sp-card-link {
+  text-decoration: none;
+  display: block;
+}
+
+.sp-card {
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  border: 1px solid #f2f2f2;
+}
+
+.sp-card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.sp-card-img-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #f8f8f8;
+}
+
+.sp-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.sp-card:hover .sp-card-img {
+  transform: scale(1.06);
+}
+
+.sp-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 46, 0.42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.sp-card:hover .sp-card-overlay {
+  opacity: 1;
+}
+
+.sp-view-btn {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  padding: 7px 18px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  transition: background 0.2s;
+}
+
+.sp-view-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.sp-card-body {
+  padding: 12px 14px 14px;
+}
+
+.sp-card-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a2e;
+  margin: 0 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.sp-card-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #e85d04;
+  margin: 0;
+}
+
+/* ---- Dots ---- */
+.sp-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.sp-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s ease;
+}
+
+.sp-dot--active {
+  width: 22px;
+  border-radius: 4px;
+  background: #e85d04;
+}
+
+.sp-dot:hover:not(.sp-dot--active) {
+  background: #aaa;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .sp-track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sp-track {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .sp-label {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sp-track {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .sp-card-name {
+    font-size: 12px;
+  }
+  .sp-card-price {
+    font-size: 13px;
+  }
+}

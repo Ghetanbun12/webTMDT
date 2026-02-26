@@ -13,6 +13,7 @@ import {
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { getProducts, deleteProduct, updateProduct } from "../../api/products";
 
 interface Product {
   _id: string;
@@ -34,20 +35,17 @@ const ProductManager: React.FC = () => {
 
   const [form] = Form.useForm();
 
-  const API = "http://localhost:3000/api/products";
-
-  // ================= FETCH PRODUCTS =================
   const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(API);
-      setProducts(res.data);
-    } catch (err) {
-      message.error("Lỗi khi lấy sản phẩm");
-    } finally {
-      setLoading(false);
-    }
-  };
+      try {
+        setLoading(true);
+        const res = await getProducts();
+        setProducts(res.data);
+      } catch (err) {
+        message.error("Lỗi khi lấy sản phẩm");
+      } finally {
+        setLoading(false);
+      }  
+    };
 
   useEffect(() => {
     fetchProducts();
@@ -97,7 +95,7 @@ const ProductManager: React.FC = () => {
     if (!selectedProduct) return;
 
     try {
-      await axios.put(`${API}/${selectedProduct._id}`, values);
+      await updateProduct(selectedProduct._id, values);
       message.success("Cập nhật thành công");
       setEditOpen(false);
       form.resetFields();
@@ -105,12 +103,30 @@ const ProductManager: React.FC = () => {
     } catch (err) {
       message.error("Cập nhật thất bại");
     }
+
+    // try {
+    //   await updateProduct(selectedProduct._id, values);
+
+    //   await axios.put(`${API}/${selectedProduct._id}`, values);
+    //   message.success("Cập nhật thành công");
+    //   setEditOpen(false);
+    //   form.resetFields();
+    //   fetchProducts();
+    // } catch (err) {
+    //   message.error("Cập nhật thất bại");
+    // }
   };
 
   // ================= DELETE =================
   const handleDelete = async (id: string) => {
-    try {
-      await axios.delete(`${API}/${id}`);
+    // try {
+    //   await axios.delete(`${API}/${id}`);
+    //   message.success("Xóa thành công");
+    //   fetchProducts();
+    // } catch (err) {
+    //   message.error("Xóa thất bại");
+    // }
+    try {      await deleteProduct(id);
       message.success("Xóa thành công");
       fetchProducts();
     } catch (err) {

@@ -122,8 +122,25 @@ const deleteProduct = async (req, res) => {
     return res.status(404).json({ message: "Không tìm thấy sản phẩm" });
   res.json({ message: "Xóa sản phẩm thành công" });
 };
+const similarProducts = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findById(id);
+    if (!product)
+      return res.status(404).json({ message: "Không tìm thấy sản phẩm" });  
+    const similar = await Product.find({
+      category: product.category,
+      _id: { $ne: id },
+    }).limit(4);
+    res.json(similar);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
 
 export {
+  similarProducts,
   searchProductsByType,
   createProducts,
   getProducts,

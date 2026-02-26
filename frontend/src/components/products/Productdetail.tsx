@@ -5,6 +5,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import { addToCart } from "../../api/cart";
 import { getProductById } from "../../api/products";
 import "../../styles/product/ProductDetail.css";
+import SimilarProducts from "./SimilarProducts.tsx";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -114,6 +115,10 @@ const ProductDetail = () => {
             <Button className="pd-buy-now">Buy Now</Button>
           </div>
         </div>
+      </div>
+      <div>
+          {/* SIMILAR PRODUCTS */}
+          <SimilarProducts productId={product._id} />
       </div>
     </div>
   );

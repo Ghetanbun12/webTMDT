@@ -11,6 +11,7 @@ import {
   searchProductsByType,
   getBestSellerProducts,
   upload,
+  similarProducts
 } from "../middleware/product.js";
 
 /**
@@ -176,5 +177,6 @@ router.put("/:id", updateProduct);
  *         description: Không tìm thấy sản phẩm
  */
 router.delete("/:id", deleteProduct);
+router.get("/similar/:id", similarProducts);
 
 export default router;

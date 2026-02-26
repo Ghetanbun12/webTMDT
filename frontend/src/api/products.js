@@ -6,6 +6,7 @@ const API = axios.create({
 export const getProducts = () => API.get("/");
 export const searchProducts = (keyword) => API.get(`/search?keyword=${keyword}`);
 export const searchProductsByType = (type) => API.get(`/searchByType?type=${type}`);
+export const getSimilarProducts = (id) => API.get(`/similar/${id}`);
 export const createProduct = (formData) =>
   API.post("/", formData, {
     headers: {
