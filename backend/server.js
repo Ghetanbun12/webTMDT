@@ -13,6 +13,8 @@ import authRoutes from "./routes/auth.js";
 import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cart.js";
 import authMiddleware from "./middleware/auth.js";
+import checkRole from "./middleware/checkRole.js";
+import orderRoutes from "./routes/order.js";
 
 const app = express();
 
@@ -37,6 +39,7 @@ console.log("SECRET:", process.env.CLOUDINARY_API_SECRET);
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Route bảo vệ
 app.get("/api/protected", authMiddleware, (req, res) => {

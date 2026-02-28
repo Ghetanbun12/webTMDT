@@ -131,7 +131,7 @@ const similarProducts = async (req, res) => {
     const similar = await Product.find({
       category: product.category,
       _id: { $ne: id },
-    }).limit(4);
+    });
     res.json(similar);
   } catch (err) {
     console.error(err);
