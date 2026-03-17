@@ -140,8 +140,13 @@ const CartPopup: React.FC<CartPopupProps> = ({ isOpen, onClose }) => {
         </div>
 
         <div className="cart-footer">
-          <button className="checkout-btn">Checkout</button>
-          <button className="viewcart-btn">View Cart</button>
+          <button className="checkout-btn" onClick={() => {
+            navigate("/checkout");
+            onClose();
+          }}>Checkout</button>
+          <button className="viewcart-btn" onClick={() => navigate("/cart")}>
+            View Cart
+          </button>
         </div>
       </div>
     </div>

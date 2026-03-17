@@ -89,12 +89,20 @@ const Header = ({onSearch }:any) => {
             {/* Right Icons */}
             <div className="header-right">
               {isLoggedIn && user ? (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ fontSize: '14px' }}>Xin chào, {user.name}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 'bold' }}>{user.name}</span>
+                  <NavLink to="/orders" className="nav-link" style={{ fontSize: '14px' }}>My Orders</NavLink>
+                  <NavLink to="/updateinforuser" className="nav-link" style={{ fontSize: '14px' }}>Profile</NavLink>
                   <button 
-                    className="icon-button user-button" 
+                    className="logout-btn" 
                     onClick={logout}
-                    style={{ cursor: 'pointer' }}
+                    style={{ 
+                      background: 'none', 
+                      border: '1px solid #ccc', 
+                      padding: '4px 8px', 
+                      cursor: 'pointer',
+                      fontSize: '12px'
+                    }}
                   >
                     Logout
                   </button>

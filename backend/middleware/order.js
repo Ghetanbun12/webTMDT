@@ -1,4 +1,5 @@
 import Order from "../models/order.js";
+import Cart from "../models/cart.js";
 
 export const getOrders = async (req, res) => {
     try {
@@ -14,12 +15,17 @@ export const createOrder = async (req, res) => {
         const { items, totalAmount } = req.body;
         const userId = req.user.userId;
         const newOrder = new Order({
-            userId,
+            user,
             items,
             totalAmount,
         });
         await newOrder.save();
+        await Cart.findOneAndUpdate(
+      { userId },
+      { items: [] }
+    );
         res.status(201).json(newOrder);
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Lỗi server" });

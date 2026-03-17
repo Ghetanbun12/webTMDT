@@ -15,7 +15,7 @@ import checkRole from "../middleware/checkRole.js";
 router.use(authMiddleware);
 
 // Admin
-router.get("/", checkRole("admin"), getOrders);
+router.get("/", checkRole("user"), getOrders);
 router.put("/:id/status", checkRole("admin"), updateOrderStatus);
 router.delete("/:id", checkRole("admin"), deleteOrder);
 

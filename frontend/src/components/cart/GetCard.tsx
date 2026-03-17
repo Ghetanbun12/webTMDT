@@ -48,10 +48,17 @@ const CartPopup: React.FC<CartPopupProps> = ({ isOpen, onClose }) => {
     const fetchData = async () => {
       try {
         const cartRes = await getCart();
-        const cart: CartItemApi[] = cartRes.data;
+        const cartData: any[] = cartRes.data.items || [];
 
         const full: CartItemFull[] = await Promise.all(
-          cart.map(async (item) => {
+          cartData.map(async (item: any) => {
+            // Nếu đã populate (là object), dùng luôn. Nếu chưa (là string), gọi API.
+            if (item.productId && typeof item.productId === "object") {
+              return {
+                ...item,
+                product: item.productId,
+              };
+            }
             const productRes = await getProductById(item.productId);
             return {
               ...item,
@@ -59,7 +66,6 @@ const CartPopup: React.FC<CartPopupProps> = ({ isOpen, onClose }) => {
             };
           })
         );
-
         setItems(full);
       } catch (err) {
         console.error("Error fetching cart:", err);
@@ -145,7 +151,10 @@ const CartPopup: React.FC<CartPopupProps> = ({ isOpen, onClose }) => {
         </div>
 
         <div className="cart-footer">
-          <button className="checkout-btn">Checkout</button>
+          <button className="checkout-btn" onClick={() => {
+            navigate("/checkout");
+            onClose();
+          }}>Checkout</button>
           <button className="viewcart-btn" onClick={() => navigate("/cart")}>
             View Cart
           </button>

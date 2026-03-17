@@ -19,6 +19,8 @@ import { UserProvider } from "./components/UserContext.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
 import FormInfor from "./components/order/FormInfor.tsx";
+import CheckoutPage from "./pages/CheckoutPage.tsx";
+import OrderHistory from "./pages/OrderHistory.tsx";
 
 
 const router = createBrowserRouter([
@@ -35,7 +37,9 @@ const router = createBrowserRouter([
       { path: "story", element: <StoryPage /> },
       {path: "home", element:<HomePage/> },
       {path: "admin", element: <AdminPage/>},
-      {path: "updateinforuser", element: <FormInfor/>} 
+      {path: "updateinforuser", element: <FormInfor/>} ,
+      { path: "checkout", element: <CheckoutPage /> },
+      { path: "orders", element: <OrderHistory /> },
     ],
   },
 ]);
