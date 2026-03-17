@@ -7,9 +7,11 @@ import CartPopup from './cart/CartPopup.tsx';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {searchProducts} from '../api/products';
+import { useUser } from './UserContext.tsx';
 
 const Header = ({onSearch }:any) => {
   const Navigate = useNavigate();
+  const { user, isLoggedIn, logout } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [current, setCurrent] = useState('shop-all');
   const [cartCount, setCartCount] = useState(0);
@@ -86,10 +88,26 @@ const Header = ({onSearch }:any) => {
 
             {/* Right Icons */}
             <div className="header-right">
-              <button className="icon-button user-button" onClick={() => { Navigate("/login") }}>
-                <User size={20} />
-                <span className="sr-only">Log In</span>
-              </button>
+              {isLoggedIn && user ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '14px' }}>Xin chào, {user.name}</span>
+                  <button 
+                    className="icon-button user-button" 
+                    onClick={logout}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <button 
+                  className="icon-button user-button" 
+                  onClick={() => Navigate("/login")}
+                >
+                  <User size={20} />
+                  <span className="sr-only">Log In</span>
+                </button>
+              )}
               <button className="icon-button cart-button" onClick={() => setIsCartOpen(!isCartOpen)}>
                 <ShoppingCart size={20} />
                 {cartCount > 0 && (

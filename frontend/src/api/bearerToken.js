@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BearerToken = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "http://localhost:5000/api",
 });
 
 // tự động thêm token nếu có

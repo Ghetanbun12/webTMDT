@@ -15,8 +15,10 @@ import ProductDetail from "./components/products/ProductDetail.tsx";
 import SearchProducts from "./components/products/SearchProduct.tsx";
 import StoryPage from "./components/otherpage/StoryPage.tsx";  // THÊM .tsx
 import { CartProvider } from "./components/cart/CartContext.tsx";  // THÊM .tsx
+import { UserProvider } from "./components/UserContext.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
+import FormInfor from "./components/order/FormInfor.tsx";
 
 
 const router = createBrowserRouter([
@@ -32,7 +34,8 @@ const router = createBrowserRouter([
       { path: "cart", element: <CartPage /> },
       { path: "story", element: <StoryPage /> },
       {path: "home", element:<HomePage/> },
-      {path: "admin", element: <AdminPage/>}
+      {path: "admin", element: <AdminPage/>},
+      {path: "updateinforuser", element: <FormInfor/>} 
     ],
   },
 ]);
@@ -43,8 +46,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <UserProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </UserProvider>
   </React.StrictMode>
 );

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Form, Input, Button, message, Card } from "antd";
 import { loginUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../components/UserContext.tsx";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useUser();
 
   const onFinish = async (values : any) => {
     setLoading(true);
@@ -14,9 +16,8 @@ const Login = () => {
       message.success("Đăng nhập thành công!");
       console.log("Token:", res.data.token);
 
-      // Lưu token vào localStorage
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      // Lưu user vào UserContext
+      login(res.data.user, res.data.token);
 
       navigate("/"); // chuyển về trang chính
     } catch (err : any) {

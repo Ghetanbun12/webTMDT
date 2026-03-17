@@ -1,9 +1,10 @@
-import express from "express";
+import express, { Router } from "express";
 import { body } from "express-validator";
 
-import { regisUser, userLogin } from "../controllers/auth.js";
+import { regisUser, userLogin, createInforUser } from "../controllers/auth.js";
 import authMiddleware from "../middleware/auth.js";
 import checkRole from "../middleware/checkRole.js";
+
 
 const router = express.Router();
 
@@ -148,5 +149,9 @@ router.get(
     });
   }
 );
-
+router.put(
+  "/updateProfile",
+  authMiddleware,
+  createInforUser
+);
 export default router;

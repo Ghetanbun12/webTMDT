@@ -3,9 +3,6 @@ import jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import User from "../models/user.js";
 
-/**
- * POST /api/auth/register
- */
 export const regisUser = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty())
@@ -93,6 +90,20 @@ export const userLogin = async (req, res) => {
       },
       token,
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
+export const createInforUser = async (req, res) => {
+      const UserId = req.user.userId;
+  try {
+    const user = await User.findByIdAndUpdate(
+      UserId,
+      { $set: req.body },
+      { new: true }
+    );
+    res.json(user);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Lỗi server" });

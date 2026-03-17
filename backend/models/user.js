@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true, // lưu hashed password
+      required: true, 
     },
     role: {
       type: String,

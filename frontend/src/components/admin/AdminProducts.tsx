@@ -51,7 +51,6 @@ const ProductManager: React.FC = () => {
     fetchProducts();
   }, []);
 
-  // ================= CREATE =================
 
   const onFinish = async (values: any) => {
     try {
@@ -104,28 +103,10 @@ const ProductManager: React.FC = () => {
       message.error("Cập nhật thất bại");
     }
 
-    // try {
-    //   await updateProduct(selectedProduct._id, values);
-
-    //   await axios.put(`${API}/${selectedProduct._id}`, values);
-    //   message.success("Cập nhật thành công");
-    //   setEditOpen(false);
-    //   form.resetFields();
-    //   fetchProducts();
-    // } catch (err) {
-    //   message.error("Cập nhật thất bại");
-    // }
   };
 
-  // ================= DELETE =================
-  const handleDelete = async (id: string) => {
-    // try {
-    //   await axios.delete(`${API}/${id}`);
-    //   message.success("Xóa thành công");
-    //   fetchProducts();
-    // } catch (err) {
-    //   message.error("Xóa thất bại");
-    // }
+    const handleDelete = async (id: string) => {
+
     try {      await deleteProduct(id);
       message.success("Xóa thành công");
       fetchProducts();
@@ -133,8 +114,6 @@ const ProductManager: React.FC = () => {
       message.error("Xóa thất bại");
     }
   };
-
-  // ================= TABLE COLUMNS =================
   const columns = [
     {
       title: "Ảnh",
@@ -186,7 +165,6 @@ const ProductManager: React.FC = () => {
     <div style={{ padding: 30 }}>
       <h2>Quản lý sản phẩm</h2>
 
-      {/* BUTTON CREATE */}
       <Button
         type="primary"
         style={{ marginBottom: 20 }}
@@ -194,16 +172,12 @@ const ProductManager: React.FC = () => {
       >
         + Thêm sản phẩm
       </Button>
-
-      {/* TABLE */}
       <Table
         columns={columns}
         dataSource={products}
         rowKey="_id"
         loading={loading}
       />
-
-      {/* CREATE MODAL */}
       <Modal
         title="Thêm sản phẩm"
         open={createOpen}
@@ -248,8 +222,6 @@ const ProductManager: React.FC = () => {
           </Button>
         </Form>
       </Modal>
-
-      {/* EDIT MODAL */}
       <Modal
         title="Sửa sản phẩm"
         open={editOpen}
