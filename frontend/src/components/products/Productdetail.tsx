@@ -6,6 +6,8 @@ import { addToCart } from "../../api/cart";
 import { getProductById } from "../../api/products";
 import "../../styles/product/ProductDetail.css";
 import SimilarProducts from "./SimilarProducts.tsx";
+import {useUser} from '../UserContext.tsx';
+import { Navigation } from "react-router-dom";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -21,6 +23,7 @@ interface Product {
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const { user } = useUser();
   const navigate = useNavigate();
 
   // ✅ typed state (NO null-any mess)
@@ -47,6 +50,18 @@ const ProductDetail = () => {
   }, [id]);
 
   if (!product) return <p>Đang tải sản phẩm...</p>;
+  const checkinfor =  !user || !user.address || !user.phone || !user.name;  
+  const handleCheckinforUser = () => {
+    if(checkinfor) {
+      alert("Vui lòng cập nhật thông tin cá nhân để thêm vào giỏ hàng");
+      console.log("User info incomplete:", user);
+      navigate("/updateinforuser");
+
+    }
+    else {
+      navigate("/login");
+    }
+  }
 
   const handleAddToCart = async () => {
     try {
@@ -112,7 +127,9 @@ const ProductDetail = () => {
               Add to Cart
             </Button>
 
-            <Button className="pd-buy-now">Buy Now</Button>
+            <Button className="pd-buy-now" onClick={handleCheckinforUser}>
+              Buy Now
+            </Button>
           </div>
         </div>
       </div>

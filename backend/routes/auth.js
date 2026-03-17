@@ -4,6 +4,7 @@ import { body } from "express-validator";
 import { regisUser, userLogin, createInforUser } from "../controllers/auth.js";
 import authMiddleware from "../middleware/auth.js";
 import checkRole from "../middleware/checkRole.js";
+import User from "../models/user.js";
 
 
 const router = express.Router();
@@ -118,11 +119,20 @@ router.post(
  *       401:
  *         description: Token không hợp lệ
  */
-router.get("/profile", authMiddleware, (req, res) => {
-  res.json({
-    message: "Token hợp lệ",
-    user: req.user,
-  });
+router.get("/profile", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "Người dùng không tồn tại" });
+    }
+    res.json({
+      message: "Token hợp lệ",
+      user: user
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Lỗi server" });
+  }
 });
 
 /**

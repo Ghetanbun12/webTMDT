@@ -4,6 +4,8 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  address: string;
+  phone: string;
   role: string;
 }
 
@@ -12,6 +14,7 @@ interface UserContextType {
   token: string | null;
   isLoggedIn: boolean;
   login: (user: User, token: string) => void;
+  updateUser: (user: User) => void;
   logout: () => void;
   loadFromStorage: () => void;
 }
@@ -22,7 +25,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
-  // Tải user từ localStorage khi app load
   useEffect(() => {
     loadFromStorage();
   }, []);
@@ -43,6 +45,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("token", authToken);
   };
 
+  const updateUser = (userData: User) => {
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
+  };
+
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -57,6 +64,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         token,
         isLoggedIn: !!user,
         login,
+        updateUser,
         logout,
         loadFromStorage,
       }}
